@@ -1,3 +1,5 @@
+require "pry"
+
 class TripController < ApplicationController
 
   get "/trips" do
@@ -7,12 +9,12 @@ class TripController < ApplicationController
 
   get "/trips/:id" do
     find_trip
-    trip.to_json
+    @trip.to_json
   end
 
   post "/trips" do
     trip = Trip.create(params)
-    @trip.to_json
+    trip.to_json
   end
 
   patch "/trips/:id" do

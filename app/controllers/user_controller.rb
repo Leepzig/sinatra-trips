@@ -1,19 +1,38 @@
 class UserController < ApplicationController
-
-  get "/user/:username" do
-    user = User.find_by_username(params[:username])
-    user.to_json
+  
+  get "/users" do
+    users = User.all
+    users.to_json(include: [:trips])
   end
 
-  post "/user" do
+  get "/users/:username" do
+    user = User.find_by_username(params[:username])
+      if user
+        user.to_json(include: [:trips])
+      else
+        { errors: user.errors.full_messages }.to_json
+  end
+
+  get "/users/:id/trips" do
+    find_user
+    @user.to_json(include: [:trips])
+  end
+
+  post "/users" do
     user = User.create(params)
     user.to_json
   end
 
-  patch "/user/:id" do 
-    user = User.find_by_id(params[:id])
-    user.update(params)
-    user.to_json
+  patch "/users/:id" do 
+    find_user
+    @user.update(params)
+    @user.to_json
   end
+
+  private 
+    def find_user
+      @user = User.find_by_id(params[:id])
+    end
+
 
 end
