@@ -11,6 +11,7 @@ class UserController < ApplicationController
         user.to_json(include: [:trips])
       else
         { errors: user.errors.full_messages }.to_json
+      end
   end
 
   get "/users/:id/trips" do
@@ -26,6 +27,12 @@ class UserController < ApplicationController
   patch "/users/:id" do 
     find_user
     @user.update(params)
+    @user.to_json
+  end
+
+  delete "/users/:id" do
+    find_user
+    @user.destroy
     @user.to_json
   end
 
