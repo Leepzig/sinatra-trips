@@ -10,7 +10,8 @@ class UserController < ApplicationController
       if user
         user.to_json(include: [:trips])
       else
-        { errors: user.errors.full_messages }.to_json
+        status 401
+        { errors: "user doesn't exist" }.to_json
       end
   end
 
