@@ -29,7 +29,7 @@ gem "sinatra-activerecord", "~> 2.0"
 gem "rake", "~> 13.0"
 
 # Provides functionality to interact with a SQLite3 database
-gem "sqlite3", "~> 1.4"
+gem "pg"
 
 # Require all files in a folder
 gem "require_all", "~> 3.0"
@@ -42,6 +42,8 @@ group :development do
   # https://github.com/alexch/rerun
   gem "rerun"
 end
+
+gem "dotenv"
 
 # These gems will only be used when we are running tests
 group :test do
